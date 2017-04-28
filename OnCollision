@@ -1,0 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Wall : MonoBehaviour {
+
+    private void OnCollisionEnter(Collision collision)        //触碰Collision物体
+    {
+        if (collision.gameObject.name != "Ground") ;          //首先先排除和Ground的碰撞
+        Debug.Log("Enter " + collision.gameObject.name);
+    }
+
+    private void OnCollisionExit(Collision collision)         //离开Collision物体
+    {
+        if (collision.gameObject.name != "Ground") ;
+        Debug.Log("Exit " + collision.gameObject.name);
+    }
+
+    private void OnCollisionStay(Collision collision)         //停留在Collision物体中
+    {
+
+        if (collision.gameObject.name != "Ground") ;
+        Debug.Log("Stay " + collision.gameObject.name);
+    }
+
+}
