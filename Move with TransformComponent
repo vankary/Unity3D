@@ -1,0 +1,43 @@
+/*用来移动物体的位置*/
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Student : MonoBehaviour {
+
+    public float speed;             //设置速度
+    private Transform m_Transform;  
+    
+    
+    
+	// Use this for initialization
+	void Start () {
+        m_Transform = gameObject.GetComponent<Transform>();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
+
+        if (Input.GetKey(KeyCode.W))                        //按W前进
+        {
+            m_Transform.Translate(Vector3.forward * 0.1f * speed, Space.Self);    //原本的格式是gameObject.Translate(Vector3.方向 * 速度 ,Space.Self);
+        }
+
+        if (Input.GetKey(KeyCode.S))                        //按S后退
+        {
+            m_Transform.Translate(Vector3.back * 0.1f * speed, Space.Self);
+        }
+
+        if (Input.GetKey(KeyCode.A))                        //按A左平移
+        {
+            m_Transform.Translate(Vector3.left * 0.1f * speed, Space.Self);
+        }
+
+        if (Input.GetKey(KeyCode.D))                        //按D右平移
+        {
+            m_Transform.Translate(Vector3.right * 0.1f * speed, Space.Self);
+        }
+    }
+}
