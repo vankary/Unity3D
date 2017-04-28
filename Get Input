@@ -1,0 +1,56 @@
+/*用来提取各种按键*/
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InputTest : MonoBehaviour {
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update ()
+    {
+    
+        //输入键盘按键
+        if (Input.GetKey(KeyCode.A))        //按住A
+        {
+            Debug.Log("KeyCode.A");
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))   //按下A
+        {
+            Debug.Log("KeyCode.A");
+        }
+
+        if (Input.GetKeyUp(KeyCode.A))      //放开A
+        {
+            Debug.Log("KeyCode.A");
+        }
+
+
+
+        //输入鼠标按键
+        if (Input.GetMouseButton(0))        //按住鼠标左边
+        {
+            Debug.Log("Mouse Left");
+        }
+
+        if (Input.GetMouseButtonDown(0))    //按下鼠标左键
+        {
+            Debug.Log("Mouse Left Down");
+        }
+
+        if (Input.GetMouseButtonUp(0))      //放开鼠标左键
+        {
+            Debug.Log("Mouse Left Up");
+        }
+
+
+
+    }
+}
