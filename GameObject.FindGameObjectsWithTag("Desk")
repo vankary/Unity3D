@@ -1,0 +1,50 @@
+/*针对tag所有物体的操作*/
+
+
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DeskTrigger : MonoBehaviour {
+
+    private GameObject[] m_Desk;                              //  1. Desk有很多克隆体，所以需要用阵列GameObject[]
+	// Use this for initialization
+	void Start () {
+        m_Desk = GameObject.FindGameObjectsWithTag("Desk");   //  2.给m_Desk赋值；把tag赋上去，代码：GameObject.FindGameObjectsWithTag("Desk");
+	}
+	
+
+    void DesksUp()
+    {
+        for(int i = 0; i < m_Desk.Length; i++)                //  3.由于m_Desk有数个物体，所以需要用loop一个一个操作
+        {
+            m_Desk[i].GetComponent<Transform>().Translate(Vector3.up * 2, Space.Self);
+        }
+    }
+
+    void DesksDown()
+    {
+        for (int i = 0; i < m_Desk.Length; i++)
+        {
+            m_Desk[i].GetComponent<Transform>().Translate(Vector3.up * -2, Space.Self);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Student")
+        {
+            DesksUp();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Student")
+        {
+            DesksDown();
+        }
+    }
+}
