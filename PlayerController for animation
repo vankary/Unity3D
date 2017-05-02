@@ -1,0 +1,145 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour {
+
+    public Animator anim;
+
+    private float inputH;
+    private float inputV;
+    private bool run;
+
+    private Rigidbody rb;
+
+	// Use this for initialization
+	void Start () {
+        rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+        run = false;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
+
+
+        /*----------------------------------------------
+         
+                            按键触发动作
+
+         ----------------------------------------------*/
+        if (Input.GetKeyDown("1"))
+        {
+            anim.Play("WAIT01", -1,0f);     //按“1”运行“WAIT01”动作
+        }
+        if (Input.GetKeyDown("2"))
+        {
+            anim.Play("WAIT02", -1, 0f);
+        }
+        if (Input.GetKeyDown("3"))
+        {
+            anim.Play("WAIT03", -1, 0f);
+        }
+        if (Input.GetKeyDown("4"))
+        {
+            anim.Play("WAIT04", -1, 0f);
+        }
+
+
+
+        /*-----------------------------------------------
+          
+                            鼠标按键触发动作
+
+          -----------------------------------------------*/
+        if (Input.GetMouseButtonDown(0))    //0左键，1右键，2中键
+        {
+            int n = Random.Range(0, 2);         //设置随机数（0到2）
+
+            if(n == 0)
+            {
+              anim.Play("DAMAGED00", -1, 0f);       //N=0时，运行DAMAGED00
+            }
+            else
+            {
+                anim.Play("DAMAGED01", -1, 0f);     //其他情况，运动DAMAGED01
+            }
+        }
+        
+
+        /*---------------------------------------------------
+         
+                            按shift跑步
+         
+         ---------------------------------------------------*/
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            run = true;
+        }
+        else
+        {
+            run = false;
+        }
+
+
+        /*---------------------------------------------------
+         
+                            按空格跳跃
+
+         ---------------------------------------------------*/
+        if (Input.GetKey(KeyCode.Space))
+        {
+            anim.SetBool("jump", true);
+        }
+        else
+        {
+            anim.SetBool("jump", false);
+        }
+
+
+        /*---------------------------------------------------
+         
+                            按C滑铲
+
+         ---------------------------------------------------*/
+         if (Input.GetKey(KeyCode.C))
+        {
+            anim.SetBool("slide", true);
+        }
+        else
+        {
+            anim.SetBool("slide", false);
+        }
+
+
+
+        /*----------------------输入--------------------------*/
+        inputH = Input.GetAxis("Horizontal");
+        inputV = Input.GetAxis("Vertical");
+
+
+
+        /*------------------将输入的数值输入相应的参数内----------------------*/
+        anim.SetFloat("inputH", inputH);
+        anim.SetFloat("inputV", inputV);
+        anim.SetBool("run", run);
+
+        float moveX = inputH * 20f * Time.deltaTime;
+        float moveZ = inputV * 50f * Time.deltaTime;
+
+
+        if(moveZ <= 0f)
+        {
+            moveX = 0f;
+        }
+        else if(run)
+        {
+            moveX *= 3f;
+            moveZ *= 3f;
+        }
+
+        rb.velocity = new Vector3(moveX, 0f, moveZ);
+
+	}
+}
