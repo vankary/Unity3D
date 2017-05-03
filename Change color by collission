@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Ball : MonoBehaviour {
+
+    public float moveSpeed = 10f;
+
+    private Rigidbody rb;
+    private Renderer rd;
+    private Light myLight;
+	// Use this for initialization
+	void Start () {
+        rb = GetComponent<Rigidbody>();
+        rd = GetComponent<Renderer>();
+        myLight = GetComponent<Light>();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        float inputX = Input.GetAxis("Horizontal");
+        float inputZ = Input.GetAxis("Vertical");
+
+        float moveX = inputX * moveSpeed * Time.deltaTime;
+        float moveZ = inputZ * moveSpeed * Time.deltaTime;
+
+        //transform.Translate(moveX, 0f, moveZ);            //平移
+        rb.AddForce(moveX, 0f, moveZ);                      //旋转
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.name == "Wall1")
+        {
+            rd.material.color = Color.blue;             //Material.color属于Renderer之下，所以必须先GetComponent<Renderer>
+            myLight.color = Color.blue;                 //把球的光改成蓝色
+        }
+        else if (collision.collider.name == "Wall2")
+        {
+            rd.material.color = Color.red;
+            myLight.color = Color.red;
+
+        }
+        else if (collision.collider.name == "Wall3")
+        {
+            rd.material.color = Color.green;
+            myLight.color = Color.green;
+
+        }
+        else if (collision.collider.name == "Wall4")
+        {
+            rd.material.color = Color.yellow;
+            myLight.color = Color.yellow;
+
+        }
+    }
+
+
+}
