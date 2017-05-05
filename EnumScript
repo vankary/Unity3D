@@ -1,0 +1,27 @@
+using UnityEngine;
+using System.Collections;
+
+public class EnumScript : MonoBehaviour 
+{
+    enum Direction {North, East, South, West};          //枚举Direction方向的4个参数
+    
+        void Start () 
+    {
+        Direction myDirection;                          //myDirection使用Direction函数
+        myDirection = Direction.North;                  //
+    }
+    
+    Direction ReverseDirection (Direction dir)          //反方向ReverseDirection使用Direction函数（参数dir）
+    {
+        if(dir == Direction.North)
+            dir = Direction.South;
+        else if(dir == Direction.South)
+            dir = Direction.North;
+        else if(dir == Direction.East)
+            dir = Direction.West;
+        else if(dir == Direction.West)
+            dir = Direction.East;
+        
+        return dir;                                     //dir打给ReverseDirection
+    }
+}
