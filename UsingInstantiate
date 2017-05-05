@@ -1,0 +1,43 @@
+using UnityEngine;
+using System.Collections;
+
+public class UsingInstantiate : MonoBehaviour
+{
+    public Rigidbody rocketPrefab;    //调用刚体  火箭子弹
+    public Transform barrelEnd;       //调用位置  枪口前端
+    
+    
+    void Update ()
+    {
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Rigidbody rocketInstance;
+            //1，加刚体
+            
+            rocketInstance = Instantiate(rocketPrefab, barrelEnd.position, barrelEnd.rotation) as Rigidbody;
+            /*                实体化       火箭子弹          出现的位置           出现的旋转        给予刚体（为了弹道效果必须加） */
+            //2，实体化子弹
+            
+            rocketInstance.AddForce(barrelEnd.forward * 5000);
+            /*              给予力量            向前      力度    */
+            //3，给予子弹速度
+        }
+    }
+}
+ 
+ 
+ 
+/*------------------------------在另一个Script里编写子弹消失--------------------------------*/ 
+ 
+/*
+using UnityEngine;
+using System.Collections;
+
+public class RocketDestruction : MonoBehaviour
+{
+    void Start()
+    {
+        Destroy (gameObject, 1.5f);
+        //子弹出现后的1.5秒消失
+    }
+}*/
