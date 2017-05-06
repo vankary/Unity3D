@@ -1,0 +1,83 @@
+using UnityEngine;
+using System.Collections;
+
+public class EventManager : MonoBehaviour 
+{
+    public delegate void ClickAction();             //call一个叫做“ClickAction”的delegate type（注意函数括号“()”）
+    public static event ClickAction OnClicked;      //call“ClickAction”的静态事件“OnClicked”
+    
+    void OnGUI()
+    {
+        if(GUI.Button(new Rect(Screen.width / 2 - 50, 5, 100, 30), "Click"))      //用代码做一个按钮
+        {
+            if(OnClicked != null)
+                OnClicked();
+        }
+    }
+}
+
+ 
+/*  =============================================================================== */
+/*                                      点击传送                                     */
+/*  =============================================================================== */
+/*
+using UnityEngine;
+using System.Collections;
+
+public class TeleportScript : MonoBehaviour 
+{
+    void OnEnable()
+    {
+        EventManager.OnClicked += Teleport;       //这里是从上面的Script中提取的！
+    }
+    
+    
+    void OnDisable()
+    {
+        EventManager.OnClicked -= Teleport;
+    }
+    
+    
+    void Teleport()
+    {
+        Vector3 pos = transform.position;       //position的参数为(x , y , z)
+        pos.y = Random.Range(1.0f, 3.0f);       //pos的y轴 = 随机（1 ~ 3）
+        transform.position = pos;               //把pos打给position
+    }
+}
+*/
+ 
+/* ===============================================================================  */
+/*                                   点击随机变色                                     */
+/*  =============================================================================== */
+
+/*
+using UnityEngine;
+using System.Collections;
+
+public class TurnColorScript : MonoBehaviour 
+{
+
+    
+    void OnEnable()
+    {
+        EventManager.OnClicked += TurnColor;    //开
+    }
+    
+    
+    void OnDisable()
+    {
+        EventManager.OnClicked -= TurnColor;    //关
+    }
+    
+    
+    void TurnColor()
+    {
+        Color col = new Color(Random.value, Random.value, Random.value);  
+        //Color的参数是(R , G , B)  随机数       随机数         随机数
+        //意思就是随机颜色
+        
+        renderer.material.color = col;    
+    }
+}
+*/
